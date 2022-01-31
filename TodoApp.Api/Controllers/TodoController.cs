@@ -4,7 +4,6 @@ using TodoApp.Domain;
 
 namespace TodoApp.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class TodoController : ControllerBase
     {
@@ -16,21 +15,21 @@ namespace TodoApp.Api.Controllers
         }
 
         [HttpGet]
-        [Route("/todos")]
+        [Route("/api/todos")]
         public IActionResult GetAll()
         {
             return Ok(todoService.GetAll());
         }
 
         [HttpGet]
-        [Route("/todo/{id}")]
+        [Route("/api/todo/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(todoService.GetById(id));
         }
 
         [HttpPost]
-        [Route("/todo/create")]
+        [Route("/api/todo/create")]
         public IActionResult Create(Todo todo)
         {
             todoService.Create(todo);
@@ -38,7 +37,7 @@ namespace TodoApp.Api.Controllers
         }
 
         [HttpPost]
-        [Route("/todo/{id}/check")]
+        [Route("/api/todo/{id}/check")]
         public IActionResult Check(int id)
         {
             var todo = todoService.GetById(id);
@@ -48,7 +47,7 @@ namespace TodoApp.Api.Controllers
         }
 
         [HttpPost]
-        [Route("/todo/{id}/delete")]
+        [Route("/api/todo/{id}/delete")]
         public IActionResult Delete(int id)
         {
             var todo = todoService.GetById(id);

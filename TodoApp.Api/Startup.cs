@@ -40,7 +40,7 @@ namespace TodoApp.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
         {
             if (env.IsDevelopment())
             {
@@ -49,7 +49,7 @@ namespace TodoApp.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoApp.Api v1"));
             }
 
-            app.UseHttpsRedirection();
+            dataContext.Database.Migrate();
 
             app.UseRouting();
 

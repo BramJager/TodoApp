@@ -2,19 +2,25 @@ version: '3.4'
 
 services:
 
-    db:
-      image: 'mcr.microsoft.com/mssql/server'
-      container_name: TodoDB
-      environment:
-          - ACCEPT_EULA=Y
-          - 'SA_PASSWORD=<YourStrong@Passw0rd>'
-      ports:
-          - '1444:1433'
+  db:
+    image: 'mcr.microsoft.com/mssql/server'
+    environment:
+        - ACCEPT_EULA=Y
+        - 'SA_PASSWORD=<YourStrong@Passw0rd>'
+    ports:
+        - '1444:1433'
 
-    todoapp.api:
-      image: ${DOCKER_REGISTRY-}todoappapi
-      ports:
-          - '8080:80'
-      build:
-        context: .
-        dockerfile: TodoApp.Api/Dockerfile
+
+  todoappapi:
+    build:
+      context: .
+      dockerfile: TodoApp.Api/Dockerfile
+    depends_on:
+      - db  
+      
+  nginx:
+    ports:
+      - '8080:80'
+    build:
+      context: .
+      dockerfile: Nginx/Dockerfile
