@@ -24,3 +24,6 @@ services:
     build:
       context: .
       dockerfile: Nginx/Dockerfile
+    volumes:
+      - './TodoAppClient/dist/TodoAppClient:/data/www/' 
+
